@@ -5,4 +5,3 @@ Project structure:
 - imgs/
 - videos/
 
-Place your existing imgs and videos folders next to index.html.
