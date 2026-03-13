@@ -91,33 +91,60 @@
             --mono:'JetBrains Mono',monospace;
             --grain:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
 
-            /* IOS / REAL VIEWPORT */
+            /* REAL IOS VIEWPORT */
             --app-height:100vh;
             --safe-top:env(safe-area-inset-top, 0px);
             --safe-bottom:env(safe-area-inset-bottom, 0px);
             --safe-left:env(safe-area-inset-left, 0px);
             --safe-right:env(safe-area-inset-right, 0px);
 
-            /* NAV */
+            /* HEADER */
             --nav-h:104px;
         }
 
-        html{
-            scroll-behavior:smooth;
-            overflow-x:hidden;
+        html,
+        body{
+            margin:0;
+            padding:0;
+            width:100%;
+            max-width:100%;
             min-height:100%;
+            overflow-x:hidden;
             background:var(--bg);
+            scroll-behavior:smooth;
         }
 
         body{
             font-family:var(--sans);
-            background:var(--bg);
             color:var(--text);
-            overflow-x:hidden;
             -webkit-font-smoothing:antialiased;
             min-height:var(--app-height);
-            padding-left:var(--safe-left);
-            padding-right:var(--safe-right);
+            position:relative;
+        }
+
+        /* FIXED WHITE IOS SAFE-AREA BLOCKERS */
+        body::before{
+            content:'';
+            position:fixed;
+            top:0;
+            left:0;
+            right:0;
+            height:var(--safe-top);
+            background:#fff;
+            z-index:100001;
+            pointer-events:none;
+        }
+
+        body::after{
+            content:'';
+            position:fixed;
+            left:0;
+            right:0;
+            bottom:0;
+            height:var(--safe-bottom);
+            background:#fff;
+            z-index:100001;
+            pointer-events:none;
         }
 
         img,video,iframe{display:block;max-width:100%}
@@ -125,18 +152,7 @@
 
         /* Utility */
         .screen-fill{min-height:var(--app-height)}
-        .screen-fill-exact{height:var(--app-height);min-height:var(--app-height)}
-
-        /* ── GRAIN OVERLAY ── */
-        body::after{
-            content:'';
-            position:fixed;
-            inset:0;
-            background:var(--grain);
-            pointer-events:none;
-            z-index:9998;
-            opacity:.6
-        }
+        .screen-fill-exact{min-height:var(--app-height)}
 
         /* ── LOADER ── */
         .loader{
@@ -149,7 +165,6 @@
             justify-content:center;
             flex-direction:column;
             gap:2rem;
-            height:var(--app-height);
             min-height:var(--app-height);
             padding:calc(1rem + var(--safe-top)) calc(1rem + var(--safe-right)) calc(1rem + var(--safe-bottom)) calc(1rem + var(--safe-left));
         }
@@ -178,6 +193,7 @@
             min-height:var(--nav-h);
             padding:calc(1.2rem + var(--safe-top)) 3.5rem 1.2rem 3.5rem;
             transition:all .5s;
+            background:#fff;
         }
 
         nav.s{
@@ -189,13 +205,12 @@
 
         .n-logo img{height:60px;width:auto}
         .n-links{display:flex;gap:2.5rem;align-items:center}
-        .n-links a{color:white;text-decoration:none;font-size:1.2rem;letter-spacing:.04em;font-weight:300;transition:color .3s;position:relative}
+        .n-links a{color:#6d655d;text-decoration:none;font-size:1.2rem;letter-spacing:.04em;font-weight:300;transition:color .3s;position:relative}
         .n-links a:hover{color:var(--red)}
-        nav.s .n-links a{color:#6d655d}
 
         .n-lang{display:flex;border:1.5px solid var(--border);border-radius:2rem;overflow:hidden}
         .n-lang button{
-            padding:.3rem .8rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:white;
+            padding:.3rem .8rem;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:#6d655d;
             background:none;border:none;cursor:pointer;font-family:var(--sans);font-weight:600;transition:all .3s
         }
         .n-lang button.active{background:var(--red);color:#fff}
@@ -209,7 +224,6 @@
             display:flex;
             align-items:flex-end;
             overflow:hidden;
-            height:var(--app-height);
             min-height:var(--app-height);
             padding:0 3.5rem calc(5rem + var(--safe-bottom)) 3.5rem;
         }
@@ -484,15 +498,15 @@
             :root{--nav-h:78px}
 
             .hero{
-                padding:0 1.5rem calc(1.4rem + var(--safe-bottom)) 1.5rem;
-                height:var(--app-height);
                 min-height:var(--app-height);
+                height:auto;
+                padding:0 1.5rem calc(1.4rem + var(--safe-bottom)) 1.5rem;
             }
 
             .hero-content{max-width:100%;margin-top:calc(var(--nav-h) + .25rem)}
 
             nav.s{
-                background:rgba(245,242,238,.95);
+                background:#fff;
                 backdrop-filter:blur(20px);
                 border-bottom:1px solid var(--border);
             }
